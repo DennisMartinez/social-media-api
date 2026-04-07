@@ -6,6 +6,8 @@ module Types
 
     field :current_user, UserType, null: true, description: 'The currently authenticated user.'
     def current_user
+      raise GraphQL::ExecutionError, 'Unauthorized' unless context[:current_user]
+
       context[:current_user]
     end
   end
