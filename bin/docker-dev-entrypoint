@@ -1,17 +1,16 @@
 #!/bin/bash -e
 
-# Bundle install
-bundle config set frozen false
-bundle check || bundle install --jobs 4 --retry 3
-
 # Enable jemalloc for reduced memory usage and latency.
 if [ -z "${LD_PRELOAD+x}" ]; then
     LD_PRELOAD=$(find /usr/lib -name libjemalloc.so.2 -print -quit)
     export LD_PRELOAD
 fi
 
-# If running the rails server then create or migrate existing database
 if [[ "$@" == *"bin/rails server"* ]]; then
+  # Bundle install if Gemfile.lock is missing or Gemfile has been updated
+  bundle check || bundle install
+
+  # Create or migrate existing database
   ./bin/rails db:prepare
 fi
 
