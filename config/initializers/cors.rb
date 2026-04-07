@@ -10,13 +10,13 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     allow_origins = []
-    allow_origins << "http://localhost:5173" if Rails.env.development?
+    allow_origins << 'http://localhost:5173' if Rails.env.development?
 
     origins allow_origins
 
-    resource "/graphql",
-      headers: :any,
-      credentials: true,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    resource '/graphql',
+             headers: :any,
+             credentials: true,
+             methods: %i[get post put patch delete options head]
   end
 end
