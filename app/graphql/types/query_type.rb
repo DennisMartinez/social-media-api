@@ -2,7 +2,9 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :current_user, Types::UserType, null: true, description: 'The currently authenticated user.'
+    description 'The query root of this schema'
+
+    field :current_user, UserType, null: true, description: 'The currently authenticated user.'
     def current_user
       context[:current_user]
     end
