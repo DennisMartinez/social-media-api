@@ -77,4 +77,6 @@ Rails.application.configure do
   config.middleware.use ActionDispatch::Cookies
 
   config.middleware.use config.session_store, config.session_options
+
+  config.x.client_url = 'http://localhost:5173'
 end
