@@ -10,6 +10,13 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
 
+    field :is_following, Boolean, null: false, description: 'Whether the current user is following this user.'
     field :posts, PostType.connection_type, null: true, description: 'The posts created by the user.'
+
+    def is_following
+      return false unless context[:current_user]
+
+      context[:current_user].following?(object)
+    end
   end
 end

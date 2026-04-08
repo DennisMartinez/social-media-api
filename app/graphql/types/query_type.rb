@@ -20,7 +20,9 @@ module Types
     end
 
     def users_to_follow
-      User.where.not(id: context[:current_user].id)
+      User.where.not(id: current_user.id)
+      # .where.not(id: current_user.following.select(:id))
+      # .order('RANDOM()')
     end
   end
 end
