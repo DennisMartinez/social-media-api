@@ -19,15 +19,7 @@ module Mutations
     def resolve(user:)
       current_user = context[:current_user]
 
-      if current_user.id == user.id
-        return { current_user:, unfollowed_user: nil, errors: ['You cannot unfollow yourself'] }
-      end
-
-      unless current_user.following.exists?(user.id)
-        return { current_user:, unfollowed_user: nil, errors: ['You are not following this user'] }
-      end
-
-      if current_user.following.destroy(user)
+      if current_user.unfollow(user)
         { current_user:, unfollowed_user: user, errors: [] }
       else
         { current_user:, unfollowed_user: nil, errors: ['Failed to unfollow the user'] }

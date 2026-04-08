@@ -22,4 +22,8 @@ class Post < ApplicationRecord
   belongs_to :user
 
   validates :content, presence: true, length: { maximum: 500 }
+
+  def can_destroy?(current_user)
+    user_id == current_user.id
+  end
 end

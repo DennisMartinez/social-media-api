@@ -33,6 +33,14 @@ class User < ApplicationRecord
 
   normalizes :email, with: ->(e) { e.strip.downcase }
 
+  def follow(other_user)
+    following << other_user unless self == other_user || following?(other_user)
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
   def following?(other_user)
     following.exists?(other_user.id)
   end

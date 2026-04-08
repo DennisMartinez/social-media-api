@@ -4,10 +4,16 @@ module Types
   class PostType < Types::BaseObject
     implements GraphQL::Types::Relay::Node
 
+    field :can_destroy, Boolean, null: false, description: 'Whether the current user can destroy this post.'
     field :content, String, null: false, description: 'The content of the post.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the post was created.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the post was last updated.'
     field :user, Types::UserType, null: false, description: 'The user who created the post.'
+
+    def can_destroy
+      # TODO: Replace with pundit
+      object.can_destroy?(context[:current_user])
+    end
   end
 end

@@ -10,13 +10,25 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
 
+    field :feed, PostType.connection_type,
+          null: false, description: 'The feed of posts from the current user and the users they follow.'
     field :is_following, Boolean, null: false, description: 'Whether the current user is following this user.'
     field :posts, PostType.connection_type, null: true, description: 'The posts created by the user.'
+    field :recommended_follows, UserType.connection_type, null: false,
+                                                          description: 'Recommended users to follow based on the user\'s following list.'
 
+    # TODO: Rename to be more clear that is following uses current user
     def is_following
-      return false unless context[:current_user]
-
       context[:current_user].following?(object)
+    end
+
+    def feed
+      Post.where(user_id: [object.id] + object.following_ids)
+    end
+
+    def recommended_follows
+      User.all
+      # User.where.not(id: [object.id] + object.following_ids).order('RANDOM()')
     end
   end
 end

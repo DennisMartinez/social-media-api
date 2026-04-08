@@ -19,17 +19,11 @@ module Mutations
     def resolve(user:)
       current_user = context[:current_user]
 
-      if current_user.id == user.id
-        return { current_user: nil, followed_user: nil, errors: ['You cannot follow yourself'] }
+      if current_user.follow(user)
+        { current_user:, followed_user: user, errors: [] }
+      else
+        { current_user:, followed_user: nil, errors: ['Failed to follow the user'] }
       end
-
-      if current_user.following.exists?(user.id)
-        return { current_user: nil, followed_user: nil, errors: ['You are already following this user'] }
-      end
-
-      current_user.following << user
-
-      { current_user:, followed_user: user, errors: [] }
     end
   end
 end
