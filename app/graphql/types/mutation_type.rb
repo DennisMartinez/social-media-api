@@ -7,6 +7,8 @@ module Types
     field :create_password_reset_token,
           mutation: Mutations::CreatePasswordResetToken,
           description: 'Initiate the password reset process by sending a reset token to the user\'s email address.'
+    field :create_post, mutation: Mutations::CreatePost, description: 'Create a new post for the current user.'
+    field :destroy_post, mutation: Mutations::DestroyPost, description: 'Delete a post created by the current user.'
     field :sign_in, mutation: Mutations::SignIn, description: 'Sign in a user with their email and password.'
     field :sign_out, mutation: Mutations::SignOut, description: 'Sign out the currently authenticated user.'
     field :sign_up, mutation: Mutations::SignUp,

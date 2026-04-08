@@ -2,6 +2,10 @@
 
 return if Rails.env.production?
 
-if User.find_by(email: 'admin@example.com').blank?
-  User.create!(name: 'Admin User', email: 'admin@example.com', password: 'admin')
-end
+User.create(name: 'Admin User', email: 'admin@example.com', password: 'admin')
+
+User.create(name: 'Jason Voorhees', email: 'jason.voorhees@example.com', password: 'password')
+User.create(name: 'Freddy Krueger', email: 'freddy.krueger@example.com', password: 'password')
+User.create(name: 'Michael Myers', email: 'michael.myers@example.com', password: 'password')
+User.create(name: 'Charles Lee Ray', email: 'charles.lee.ray@example.com', password: 'password')
+User.create(name: 'Leatherface Slaughter', email: 'leatherface.slaughter@example.com', password: 'password')

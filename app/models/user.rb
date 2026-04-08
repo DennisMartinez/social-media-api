@@ -18,6 +18,7 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sessions, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true

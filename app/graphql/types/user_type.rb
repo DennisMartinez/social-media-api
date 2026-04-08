@@ -9,5 +9,7 @@ module Types
     field :name, String, null: false, description: 'The name of the user.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
+
+    field :posts, PostType.connection_type, null: true, description: 'The posts created by the user.'
   end
 end

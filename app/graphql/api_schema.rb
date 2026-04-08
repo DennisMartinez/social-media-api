@@ -10,10 +10,15 @@ class ApiSchema < GraphQL::Schema
   # GraphQL-Ruby calls this when something goes wrong while running a query:
 
   # Union and Interface Resolution
-  def self.resolve_type(_abstract_type, _obj, _ctx)
-    # TODO: Implement this method
-    # to return the correct GraphQL object type for `obj`
-    raise(GraphQL::RequiredImplementationMissingError)
+  def self.resolve_type(_abstract_type, obj, _ctx)
+    case obj
+    when User
+      Types::UserType
+    when Post
+      Types::PostType
+    else
+      raise(GraphQL::RequiredImplementationMissingError)
+    end
   end
 
   # Limit the size of incoming queries:
