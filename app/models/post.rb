@@ -21,6 +21,9 @@
 class Post < ApplicationRecord
   belongs_to :user
 
+  has_many :likes, as: :likeable, dependent: :destroy
+  # has_many :liked_by_users, through: :likes, source: :user
+
   validates :content, presence: true, length: { maximum: 500 }
 
   def can_destroy?(current_user)

@@ -16,6 +16,8 @@ class ApiSchema < GraphQL::Schema
       Types::UserType
     when Post
       Types::PostType
+    when Like
+      Types::LikeType
     else
       raise(GraphQL::RequiredImplementationMissingError)
     end

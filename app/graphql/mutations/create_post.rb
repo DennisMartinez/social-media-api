@@ -16,12 +16,13 @@ module Mutations
     end
 
     def resolve(content:)
-      post = context[:current_user].posts.build(content: content)
+      current_user = context[:current_user]
+      post = current_user.posts.build(content:)
 
       if post.save
         range_add = GraphQL::Relay::RangeAdd.new(
-          parent: post,
-          collection: context[:current_user].posts,
+          parent: current_user,
+          collection: current_user.posts,
           item: post,
           context: context
         )
