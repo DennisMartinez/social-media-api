@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -18,7 +20,7 @@
 #
 FactoryBot.define do
   factory :post do
-    content { "MyText" }
+    content { 'MyText' }
     user { nil }
   end
 end
