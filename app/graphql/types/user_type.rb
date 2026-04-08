@@ -24,8 +24,12 @@ module Types
       context[:current_user].following?(object)
     end
 
+    def posts
+      object.posts.order(created_at: :desc)
+    end
+
     def feed
-      Post.where(user_id: [object.id] + object.following_ids)
+      Post.where(user_id: [object.id] + object.following_ids).order(created_at: :desc)
     end
 
     def recommended_follows
