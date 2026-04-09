@@ -10,6 +10,19 @@ charles_lee_ray = User.create(name: 'Charles Lee Ray', email: 'charles.lee.ray@e
 leatherface_slaughter = User.create(name: 'Leatherface Slaughter', email: 'leatherface.slaughter@example.com',
                                     password: 'password')
 
+jason_voorhees.avatar.attach(
+  io: File.open(Rails.root.join('db/seeds/avatars/jason_voorhees.jpg')), filename: 'jason_voorhees.jpg'
+)
+michael_myers.avatar.attach(
+  io: File.open(Rails.root.join('db/seeds/avatars/michael_myers.jpg')), filename: 'michael_myers.jpg'
+)
+charles_lee_ray.avatar.attach(
+  io: File.open(Rails.root.join('db/seeds/avatars/charles_lee_ray.jpg')), filename: 'charles_lee_ray.jpg'
+)
+leatherface_slaughter.avatar.attach(
+  io: File.open(Rails.root.join('db/seeds/avatars/leatherface_slaughter.jpg')), filename: 'leatherface_slaughter.jpg'
+)
+
 jason_voorhees.posts.create(content: 'Just got a new machete! #excited')
 jason_voorhees.posts.create(content: 'Anyone want to go camping this weekend? #fun')
 jason_voorhees.follow(leatherface_slaughter)

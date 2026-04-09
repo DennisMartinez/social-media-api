@@ -6,23 +6,22 @@ module Types
 
     description 'A user of the social media platform.'
 
+    field :avatar_url, String, null: true, description: 'The URL of the user\'s avatar image.'
+    field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was created.'
     field :email, String, null: false, description: 'The email address of the user.'
-    field :name, String, null: false, description: 'The name of the user.'
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
-                                                        description: 'The time when the user was last updated.'
-
     field :feed, Types::PostType.connection_type,
           null: false, description: 'The feed of posts from the current user and the users they follow.'
+    field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
+    field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
     field :is_following, Boolean, null: false, description: 'Whether the current user is following this user.'
+    field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
+    field :name, String, null: false, description: 'The name of the user.'
     field :posts, Types::PostType.connection_type, null: true, description: 'The posts created by the user.'
     field :recommended_follows, Types::UserType.connection_type, null: false,
                                                                  description: 'Recommended users to follow based on the user\'s following list.'
-
-    field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
-    field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
-    field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
-    field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
+                                                        description: 'The time when the user was last updated.'
 
     # TODO: Rename to be more clear that is following uses current user
     def is_following

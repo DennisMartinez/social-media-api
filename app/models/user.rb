@@ -17,6 +17,9 @@
 #
 class User < ApplicationRecord
   has_secure_password
+
+  has_one_attached :avatar
+
   has_many :sessions, dependent: :destroy
   has_many :posts, dependent: :destroy
 
@@ -38,6 +41,12 @@ class User < ApplicationRecord
   validates :password, presence: true, if: -> { new_record? || password.present? }
 
   normalizes :email, with: ->(e) { e.strip.downcase }
+
+  def avatar_url
+    return unless avatar.attached?
+
+    Rails.application.routes.url_helpers.rails_blob_url(avatar)
+  end
 
   def follow(other_user)
     following << other_user unless self == other_user || following?(other_user)
