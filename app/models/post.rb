@@ -26,6 +26,14 @@ class Post < ApplicationRecord
 
   validates :content, presence: true, length: { maximum: 500 }
 
+  def likes_count
+    likes.size
+  end
+
+  def comments_count
+    comments.size
+  end
+
   def can_destroy?(current_user)
     user_id == current_user.id
   end

@@ -17,6 +17,8 @@ module Types
     field :comments, Types::CommentType.connection_type, null: false, description: 'The comments on this post.'
     field :current_user_like, Types::LikeType, null: true,
                                                description: 'The like that the current user has on this post, if it exists.'
+    field :likes_count, Integer, null: false, description: 'The number of likes on this post.'
+    field :comments_count, Integer, null: false, description: 'The number of comments on this post.'
 
     def can_destroy
       # TODO: Replace with pundit
