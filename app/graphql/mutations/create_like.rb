@@ -22,8 +22,8 @@ module Mutations
 
       if like.save
         range_add = GraphQL::Relay::RangeAdd.new(
-          parent: current_user,
-          collection: current_user.likes,
+          parent: likeable,
+          collection: likeable.likes,
           item: like,
           context: context
         )

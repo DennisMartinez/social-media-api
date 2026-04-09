@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Types
-  class LikeableType < Types::BaseUnion
-    description 'Objects that can be liked.'
+  class CommentableType < Types::BaseUnion
+    description 'Objects that can be commented on.'
 
     possible_types Types::PostType
 
@@ -11,7 +11,7 @@ module Types
       when Post
         Types::PostType
       else
-        raise "Unexpected likeable type: #{object.class.name}"
+        raise "Unexpected commentable type: #{object.class.name}"
       end
     end
   end

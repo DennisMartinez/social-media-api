@@ -23,6 +23,9 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :likeable, source_type: 'Post'
 
+  has_many :comments, dependent: :destroy
+  has_many :commented_posts, through: :comments, source: :commentable, source_type: 'Post'
+
   has_many :following_relationships, class_name: 'Follow', foreign_key: 'follower_id', inverse_of: :follower,
                                      dependent: :destroy
   has_many :following, through: :following_relationships, source: :followed

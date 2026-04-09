@@ -19,6 +19,8 @@ module Types
     field :recommended_follows, Types::UserType.connection_type, null: false,
                                                                  description: 'Recommended users to follow based on the user\'s following list.'
 
+    field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
+
     # TODO: Rename to be more clear that is following uses current user
     def is_following
       context[:current_user].following?(object)
