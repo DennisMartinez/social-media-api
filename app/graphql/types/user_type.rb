@@ -20,6 +20,9 @@ module Types
                                                                  description: 'Recommended users to follow based on the user\'s following list.'
 
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
+    field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
+    field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
+    field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
 
     # TODO: Rename to be more clear that is following uses current user
     def is_following
