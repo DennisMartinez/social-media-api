@@ -87,7 +87,7 @@ module Types
     end
 
     def recommended_follows
-      dataloader.with(Sources::RecommendedFollowsSource).load(object)
+      dataloader.with(Sources::RecommendedFollowsSource, context[:viewer]).load(object)
     end
 
     def viewer_is_following
