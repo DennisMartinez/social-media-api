@@ -11,5 +11,13 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the like was last updated.'
     field :user, Types::UserType, null: false, description: 'The user who created the like.'
+
+    def likeable
+      dataloader.with(Sources::AssociationSource, :likeable).load(object)
+    end
+
+    def user
+      dataloader.with(Sources::RecordSource, User).load(object.user_id)
+    end
   end
 end

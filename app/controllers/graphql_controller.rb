@@ -10,11 +10,21 @@ class GraphqlController < ApplicationController
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
+    viewer = Current.user
     context = {
       # Query context goes here, for example:
       application_controller: self,
-      viewer: Current.user
+      viewer:
     }
+
+    # Preload the viewer's avatar to avoid N+1 queries when resolving avatar URLs for multiple users.
+    if viewer
+      ActiveRecord::Associations::Preloader.new(
+        records: [viewer],
+        associations: { avatar_attachment: :blob }
+      ).call
+    end
+
     result = ApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue StandardError => e

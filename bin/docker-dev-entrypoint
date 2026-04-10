@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Remove server.pid if it exists to prevent "A server is already running" error
+rm -f /app/tmp/pids/server.pid
+
 # Wait for PostgreSQL to be ready
 until pg_isready -h "$DATABASE_HOST" -U "$DATABASE_USER"; do
   echo "Waiting for database..."

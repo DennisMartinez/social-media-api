@@ -42,12 +42,6 @@ class User < ApplicationRecord
 
   normalizes :email, with: ->(e) { e.strip.downcase }
 
-  def avatar_url
-    return unless avatar.attached?
-
-    Rails.application.routes.url_helpers.rails_blob_url(avatar)
-  end
-
   def follow(other_user)
     following << other_user unless self == other_user || following?(other_user)
   end
