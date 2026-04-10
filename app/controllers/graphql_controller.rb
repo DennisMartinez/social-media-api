@@ -13,7 +13,7 @@ class GraphqlController < ApplicationController
     context = {
       # Query context goes here, for example:
       application_controller: self,
-      current_user: Current.user
+      viewer: Current.user
     }
     result = ApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result

@@ -12,14 +12,14 @@ module Mutations
     argument :content, String, required: true, description: 'The content of the comment.'
 
     def authorized?(**_args)
-      return true if context[:current_user]
+      return true if context[:viewer]
 
       raise GraphQL::ExecutionError, 'Unauthorized'
     end
 
     def resolve(commentable:, content:)
-      current_user = context[:current_user]
-      comment = current_user.comments.build(commentable:, content:)
+      viewer = context[:viewer]
+      comment = viewer.comments.build(commentable:, content:)
 
       if comment.save
         range_add = GraphQL::Relay::RangeAdd.new(

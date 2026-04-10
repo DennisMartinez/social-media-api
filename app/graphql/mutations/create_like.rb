@@ -11,14 +11,14 @@ module Mutations
                                description: 'The ID of the likeable object to like.'
 
     def authorized?(**_args)
-      return true if context[:current_user]
+      return true if context[:viewer]
 
       raise GraphQL::ExecutionError, 'Unauthorized'
     end
 
     def resolve(likeable:)
-      current_user = context[:current_user]
-      like = current_user.likes.build(likeable:)
+      viewer = context[:viewer]
+      like = viewer.likes.build(likeable:)
 
       if like.save
         range_add = GraphQL::Relay::RangeAdd.new(

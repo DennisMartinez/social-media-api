@@ -7,12 +7,12 @@ module Types
 
     description 'The query root of this schema'
 
-    field :current_user, UserType, null: false, description: 'The currently authenticated user.'
+    field :viewer, UserType, null: false, description: 'The currently authenticated user'
 
-    def current_user
-      raise GraphQL::ExecutionError, 'Unauthorized' unless context[:current_user]
+    def viewer
+      raise GraphQL::ExecutionError, 'Unauthorized' unless context[:viewer]
 
-      context[:current_user]
+      context[:viewer]
     end
   end
 end

@@ -11,8 +11,8 @@ module Mutations
                                description: 'The ID of the likeable object to unlike.'
 
     def authorized?(likeable:, **_args)
-      current_user = context[:current_user]
-      like = current_user.likes.find_by(likeable:)
+      viewer = context[:viewer]
+      like = viewer.likes.find_by(likeable:)
 
       return true if like
 
@@ -20,8 +20,8 @@ module Mutations
     end
 
     def resolve(likeable:)
-      current_user = context[:current_user]
-      like = current_user.likes.find_by(likeable:)
+      viewer = context[:viewer]
+      like = viewer.likes.find_by(likeable:)
 
       if like.destroy
         { like:, errors: [] }

@@ -11,9 +11,9 @@ module Mutations
                               description: 'The ID of the comment to destroy.'
 
     def authorized?(comment:, **_args)
-      current_user = context[:current_user]
+      viewer = context[:viewer]
 
-      return true if comment.user_id == current_user.id
+      return true if comment.user_id == viewer.id
 
       raise GraphQL::ExecutionError, 'Unauthorized'
     end

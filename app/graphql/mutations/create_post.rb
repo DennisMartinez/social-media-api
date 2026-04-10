@@ -10,19 +10,19 @@ module Mutations
     argument :content, String, required: true, description: 'The content of the post.'
 
     def authorized?(**_args)
-      return true if context[:current_user]
+      return true if context[:viewer]
 
       raise GraphQL::ExecutionError, 'Authentication required'
     end
 
     def resolve(content:)
-      current_user = context[:current_user]
-      post = current_user.posts.build(content:)
+      viewer = context[:viewer]
+      post = viewer.posts.build(content:)
 
       if post.save
         range_add = GraphQL::Relay::RangeAdd.new(
-          parent: current_user,
-          collection: current_user.posts,
+          parent: viewer,
+          collection: viewer.posts,
           item: post,
           context: context
         )

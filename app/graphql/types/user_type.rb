@@ -14,23 +14,26 @@ module Types
           null: false, description: 'The feed of posts from the current user and the users they follow.'
     field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
     field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
-    field :is_following, Boolean, null: false, description: 'Whether the current user is following this user.'
     field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
     field :name, String, null: false, description: 'The name of the user.'
     field :posts, Types::PostType.connection_type, null: true, description: 'The posts created by the user.'
-    field :recommended_follows, Types::UserType.connection_type, null: true,
-                                                                 description: 'Recommended users to follow based on the user\'s following list.'
+    field :recommended_follows, Types::UserType.connection_type,
+          null: true, description: 'Recommended users to follow based on the user\'s following list.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
-    field :current_user, Types::UserType, null: false, description: 'The current user viewing the profile.'
+    field :viewer_can_follow, Boolean, null: false,
+                                       description: 'Whether the current viewer can follow this user.'
+    field :viewer_is_following, Boolean, null: false, description: 'Whether the current viewer is following this user.'
 
-    def current_user
-      context[:current_user]
+    def viewer_can_follow
+      return false unless context[:viewer]
+      return false if context[:viewer] == object
+
+      true
     end
 
-    # TODO: Rename to be more clear that is following uses current user
-    def is_following
-      context[:current_user].following?(object)
+    def viewer_is_following
+      context[:viewer].following?(object)
     end
 
     def posts
@@ -38,11 +41,11 @@ module Types
     end
 
     def feed
-      Post.where(user_id: [object.id, context[:current_user]] + object.following_ids).order(created_at: :desc)
+      Post.where(user_id: [object.id, context[:viewer].id] + object.following_ids).order(created_at: :desc)
     end
 
     def recommended_follows
-      User.where.not(id: [object.id, context[:current_user]] + object.following_ids).order('RANDOM()')
+      User.where.not(id: [object.id, context[:viewer].id] + object.following_ids).order('RANDOM()')
     end
 
     def followers

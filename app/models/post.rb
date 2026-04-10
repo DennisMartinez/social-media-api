@@ -34,7 +34,7 @@ class Post < ApplicationRecord
     comments.size
   end
 
-  def can_destroy?(current_user)
-    user_id == current_user.id
+  def can_destroy?(viewer)
+    user_id == viewer.id
   end
 end

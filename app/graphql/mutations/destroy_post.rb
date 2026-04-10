@@ -10,7 +10,7 @@ module Mutations
     argument :post_id, ID, required: true, loads: Types::PostType, description: 'The ID of the post to delete.'
 
     def authorized?(post:, **_args)
-      return true if context[:current_user] && post.user_id == context[:current_user].id
+      return true if context[:viewer] && post.user_id == context[:viewer].id
 
       raise GraphQL::ExecutionError, 'Unauthorized'
     end
