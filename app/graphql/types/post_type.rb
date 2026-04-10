@@ -18,6 +18,11 @@ module Types
                                                description: 'The like that the current user has on this post, if it exists.'
     field :likes_count, Integer, null: false, description: 'The number of likes on this post.'
     field :comments_count, Integer, null: false, description: 'The number of comments on this post.'
+    field :current_user, Types::UserType, null: false, description: 'The current user viewing the post.'
+
+    def current_user
+      context[:current_user]
+    end
 
     def comments
       object.comments.order(created_at: :desc)

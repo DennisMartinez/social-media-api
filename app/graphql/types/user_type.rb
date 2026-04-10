@@ -18,10 +18,15 @@ module Types
     field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
     field :name, String, null: false, description: 'The name of the user.'
     field :posts, Types::PostType.connection_type, null: true, description: 'The posts created by the user.'
-    field :recommended_follows, Types::UserType.connection_type, null: false,
+    field :recommended_follows, Types::UserType.connection_type, null: true,
                                                                  description: 'Recommended users to follow based on the user\'s following list.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
+    field :current_user, Types::UserType, null: false, description: 'The current user viewing the profile.'
+
+    def current_user
+      context[:current_user]
+    end
 
     # TODO: Rename to be more clear that is following uses current user
     def is_following
@@ -33,12 +38,19 @@ module Types
     end
 
     def feed
-      Post.where(user_id: [object.id] + object.following_ids).order(created_at: :desc)
+      Post.where(user_id: [object.id, context[:current_user]] + object.following_ids).order(created_at: :desc)
     end
 
     def recommended_follows
-      User.all
-      # User.where.not(id: [object.id] + object.following_ids).order('RANDOM()')
+      User.where.not(id: [object.id, context[:current_user]] + object.following_ids).order('RANDOM()')
+    end
+
+    def followers
+      object.followers.order(created_at: :desc)
+    end
+
+    def following
+      object.following.order(created_at: :desc)
     end
   end
 end
