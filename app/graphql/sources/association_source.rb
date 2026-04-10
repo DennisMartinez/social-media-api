@@ -25,7 +25,11 @@ class Sources::AssociationSource < GraphQL::Dataloader::Source
         scope: @order ? records.first.class.reflect_on_association(@association_name).klass.order(@order) : nil
       ).call
 
-      records.map { |r| r.public_send(@association_name).to_a }
+      records.map do |r|
+        association = r.public_send(@association_name)
+
+        reflection.collection? ? association.to_a : association
+      end
     end
   end
 end
