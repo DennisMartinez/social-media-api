@@ -11,16 +11,16 @@ leatherface_slaughter = User.create(name: 'Leatherface Slaughter', email: 'leath
                                     password: 'password')
 
 jason_voorhees.avatar.attach(
-  io: File.open(Rails.root.join('db/seeds/avatars/jason_voorhees.jpg')), filename: 'jason_voorhees.jpg'
+  io: Rails.root.join('db/seeds/avatars/jason_voorhees.jpg').open, filename: 'jason_voorhees.jpg'
 )
 michael_myers.avatar.attach(
-  io: File.open(Rails.root.join('db/seeds/avatars/michael_myers.jpg')), filename: 'michael_myers.jpg'
+  io: Rails.root.join('db/seeds/avatars/michael_myers.jpg').open, filename: 'michael_myers.jpg'
 )
 charles_lee_ray.avatar.attach(
-  io: File.open(Rails.root.join('db/seeds/avatars/charles_lee_ray.jpg')), filename: 'charles_lee_ray.jpg'
+  io: Rails.root.join('db/seeds/avatars/charles_lee_ray.jpg').open, filename: 'charles_lee_ray.jpg'
 )
 leatherface_slaughter.avatar.attach(
-  io: File.open(Rails.root.join('db/seeds/avatars/leatherface_slaughter.jpg')), filename: 'leatherface_slaughter.jpg'
+  io: Rails.root.join('db/seeds/avatars/leatherface_slaughter.jpg').open, filename: 'leatherface_slaughter.jpg'
 )
 
 jason_voorhees.posts.create(content: 'Just got a new machete! #excited')

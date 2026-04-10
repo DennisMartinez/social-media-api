@@ -1,16 +1,20 @@
-class Sources::ViewerHasLikedSource < GraphQL::Dataloader::Source
-  def initialize(viewer)
-    @viewer = viewer
-  end
+# frozen_string_literal: true
 
-  def fetch(likeables)
-    return likeables.map { false } unless @viewer
+module Sources
+  class ViewerHasLikedSource < GraphQL::Dataloader::Source
+    def initialize(viewer)
+      @viewer = viewer
+    end
 
-    liked_ids = @viewer.likes
-                       .where(likeable: likeables)
-                       .pluck(:likeable_id, :likeable_type)
-                       .each_with_object(Set.new) { |(id, type), set| set << [id, type] }
+    def fetch(likeables)
+      return likeables.map { false } unless @viewer
 
-    likeables.map { |l| liked_ids.include?([l.id, l.class.name]) }
+      liked_ids = @viewer.likes
+                         .where(likeable: likeables)
+                         .pluck(:likeable_id, :likeable_type)
+                         .each_with_object(Set.new) { |(id, type), set| set << [id, type] }
+
+      likeables.map { |l| liked_ids.include?([l.id, l.class.name]) }
+    end
   end
 end

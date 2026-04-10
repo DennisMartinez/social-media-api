@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: likes
@@ -21,6 +23,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe Like, type: :model do
+RSpec.describe Like do
   pending "add some examples to (or delete) #{__FILE__}"
 end
