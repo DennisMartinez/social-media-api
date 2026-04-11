@@ -11,9 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[8.0].define(version: 2026_04_09_160454) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_catalog.plpgsql"
-
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -43,10 +40,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_160454) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "content", null: false
-    t.bigint "user_id", null: false
+    t.text "content", limit: 500, null: false
+    t.integer "user_id", null: false
     t.string "commentable_type", null: false
-    t.bigint "commentable_id", null: false
+    t.integer "commentable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
@@ -54,8 +51,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_160454) do
   end
 
   create_table "follows", force: :cascade do |t|
-    t.bigint "follower_id", null: false
-    t.bigint "followed_id", null: false
+    t.integer "follower_id", null: false
+    t.integer "followed_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["followed_id"], name: "index_follows_on_followed_id"
@@ -64,9 +61,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_160454) do
   end
 
   create_table "likes", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "likeable_type", null: false
-    t.bigint "likeable_id", null: false
+    t.integer "likeable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
@@ -75,15 +72,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_09_160454) do
   end
 
   create_table "posts", force: :cascade do |t|
-    t.text "content", null: false
-    t.bigint "user_id", null: false
+    t.text "content", limit: 500, null: false
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "created_at", null: false
