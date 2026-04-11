@@ -11,6 +11,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     allow_origins = []
     allow_origins << 'http://localhost:5173' if Rails.env.development?
+    allow_origins << 'https://social-media.dennismartinez.io' if Rails.env.production?
 
     origins allow_origins
 
