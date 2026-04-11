@@ -4,13 +4,13 @@
 #
 # Table name: comments
 #
-#  id               :bigint           not null, primary key
+#  id               :integer          not null, primary key
 #  commentable_type :string           not null
-#  content          :text             not null
+#  content          :text(500)        not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  commentable_id   :bigint           not null
-#  user_id          :bigint           not null
+#  commentable_id   :integer          not null
+#  user_id          :integer          not null
 #
 # Indexes
 #
@@ -19,7 +19,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.id)
+#  user_id  (user_id => users.id)
 #
 FactoryBot.define do
   factory :comment do

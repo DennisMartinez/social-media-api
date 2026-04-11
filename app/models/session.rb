@@ -4,12 +4,12 @@
 #
 # Table name: sessions
 #
-#  id         :bigint           not null, primary key
+#  id         :integer          not null, primary key
 #  ip_address :string
 #  user_agent :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  user_id    :bigint           not null
+#  user_id    :integer          not null
 #
 # Indexes
 #
@@ -17,7 +17,7 @@
 #
 # Foreign Keys
 #
-#  fk_rails_...  (user_id => users.id)
+#  user_id  (user_id => users.id)
 #
 class Session < ApplicationRecord
   belongs_to :user

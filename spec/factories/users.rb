@@ -4,7 +4,7 @@
 #
 # Table name: users
 #
-#  id              :bigint           not null, primary key
+#  id              :integer          not null, primary key
 #  email           :string(255)      not null
 #  name            :string(255)      not null
 #  password_digest :string           not null
