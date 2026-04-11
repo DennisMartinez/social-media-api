@@ -32,6 +32,13 @@ The GraphQL url will be available at:
 http://localhost:3000/graphql
 ```
 
+#### Seeding Data
+You can generate fake data by running the following command in a Rails console. By default, it'll generate 100 users with various posts, comments, and likes. If you'd like more or less than 100 users, you can pass a number as the first parameter.
+
+```bash
+GenerateFakeDataJob.perform_now(100)
+```
+
 ### Running the Frontend App
 
 See setup instructions here: https://github.com/DennisMartinez/social-media-app

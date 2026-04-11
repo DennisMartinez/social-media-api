@@ -59,3 +59,5 @@ group :development, :test do
 end
 
 gem 'graphql', '~> 2.5'
+
+gem 'faker', '~> 3.6'
