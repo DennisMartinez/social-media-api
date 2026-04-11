@@ -1,24 +1,37 @@
-# README
+# Social Media App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An example application built with Ruby on Rails, React, and Relay.
 
-Things you may want to cover:
+Frontend Application: https://github.com/DennisMartinez/social-media-app
 
-* Ruby version
+---
 
-* System dependencies
+## Getting Started
 
-* Configuration
+### Prerequisites
 
-* Database creation
+1. **Ruby on Rails** — https://guides.rubyonrails.org/install_ruby_on_rails.html
+   1. Good video on installing Rails https://www.youtube.com/watch?v=oEDkhfsFMTg
 
-* Database initialization
+### Running the Backend App
 
-* How to run the test suite
+After install Ruby on Rails, install the dependencies and start the development server:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+bin/rails s
+```
 
-* Deployment instructions
+The app will be available at:
+```bash
+http://localhost:3000
+```
 
-* ...
+The GraphQL url will be available at:
+```bash
+http://localhost:3000/graphql
+```
+
+### Running the Frontend App
+
+See setup instructions here: https://github.com/DennisMartinez/social-media-app
