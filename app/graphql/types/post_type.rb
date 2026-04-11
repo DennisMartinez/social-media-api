@@ -18,6 +18,8 @@ module Types
     field :viewer_can_destroy, Boolean, null: false, description: 'Whether the current viewer can destroy this post.'
     field :viewer_can_like, Boolean, null: false, description: 'Whether the current viewer can like this post.'
     field :viewer_has_liked, Boolean, null: false, description: 'Whether the current viewer is liking this post.'
+    field :viewer_like, Types::LikeType,
+          null: true, description: 'The like object representing the current viewer\'s like on this post, if it exists.'
 
     def comments
       dataloader
@@ -62,6 +64,15 @@ module Types
 
     def viewer_has_liked
       dataloader.with(Sources::ViewerHasLikedSource, context[:viewer]).load(object)
+    end
+
+    def viewer_like
+      return nil unless context[:viewer]
+
+      dataloader
+        .with(Sources::AssociationSource, :likes)
+        .load(object)
+        .then { |likes| likes.find { |like| like.user_id == context[:viewer].id } }
     end
   end
 end
