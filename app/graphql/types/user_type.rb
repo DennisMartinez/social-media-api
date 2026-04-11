@@ -4,7 +4,7 @@ module Types
   class UserType < Types::BaseObject
     implements GraphQL::Types::Relay::Node
 
-    description 'A user of the social media platform. #force-push'
+    description 'A user of the social media platform.'
 
     field :avatar_url, String, null: true, description: 'The URL of the user\'s avatar image.'
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
