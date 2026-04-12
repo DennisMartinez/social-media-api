@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  bio             :text(1000)
 #  email           :string(255)      not null
 #  name            :string(255)      not null
 #  password_digest :string           not null

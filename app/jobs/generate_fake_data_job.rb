@@ -58,7 +58,8 @@ class GenerateFakeDataJob < ApplicationJob
       user = User.create!(
         name: Faker::Name.name,
         email: Faker::Internet.unique.email,
-        password: 'password'
+        password: 'password',
+        bio: Faker::Lorem.sentence(word_count: rand(10..30))
       )
 
       user.avatar.attach(

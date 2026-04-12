@@ -5,6 +5,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  bio             :text(1000)
 #  email           :string(255)      not null
 #  name            :string(255)      not null
 #  password_digest :string           not null
@@ -37,6 +38,7 @@ class User < ApplicationRecord
   has_many :followers, through: :follower_relationships, source: :follower
 
   validates :name, presence: true, length: { maximum: 255 }
+  validates :bio, length: { maximum: 1000 }, allow_blank: true
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true
   validates :password, presence: true, if: -> { new_record? || password.present? }
 

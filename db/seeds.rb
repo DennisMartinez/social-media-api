@@ -2,4 +2,5 @@
 
 return if Rails.env.production?
 
-User.create(name: 'Admin User', email: 'admin@example.com', password: 'admin')
+User.create(name: 'Admin User', email: 'admin@example.com', password: 'admin',
+            bio: 'Hi! I am the admin user. I can do anything!')

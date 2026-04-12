@@ -7,6 +7,7 @@ module Types
     description 'A user of the social media platform.'
 
     field :avatar_url, String, null: true, description: 'The URL of the user\'s avatar image.'
+    field :bio, String, null: true, description: 'A short biography of the user.'
     field :comment_count, Integer, null: false, description: 'The number of comments made by the user.'
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was created.'
