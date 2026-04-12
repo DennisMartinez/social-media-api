@@ -52,7 +52,7 @@ module Types
     end
 
     def viewer_can_destroy
-      object.can_destroy?(context[:viewer])
+      object.user_id == context[:viewer].id
     end
 
     def viewer_can_like

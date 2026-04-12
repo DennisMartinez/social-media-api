@@ -18,6 +18,8 @@ class ApiSchema < GraphQL::Schema
       Types::PostType
     when Like
       Types::LikeType
+    when Comment
+      Types::CommentType
     else
       raise(GraphQL::RequiredImplementationMissingError)
     end

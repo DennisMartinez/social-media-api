@@ -13,6 +13,7 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the comment was last updated.'
     field :user, Types::UserType, null: false, description: 'The user who created the comment.'
+    field :viewer_can_destroy, Boolean, null: false, description: 'Whether the current viewer can destroy this comment.'
 
     def commentable
       dataloader.with(Sources::AssociationSource, :commentable).load(object)
@@ -20,6 +21,10 @@ module Types
 
     def user
       dataloader.with(Sources::RecordSource, User).load(object.user_id)
+    end
+
+    def viewer_can_destroy
+      object.user_id == context[:viewer].id
     end
   end
 end
