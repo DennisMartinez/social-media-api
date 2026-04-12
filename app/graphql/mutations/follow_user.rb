@@ -5,8 +5,8 @@ module Mutations
     description 'Follow a user.'
 
     field :errors, [String], null: false, description: 'Any errors that occurred while trying to follow the user.'
-    field :followed_user, Types::UserType, null: true, description: 'The user that was followed.'
-    field :viewer, Types::UserType, null: true, description: 'The user that is performing the follow action.'
+    field :followee, Types::UserType, null: true, description: 'The user that was followed.'
+    field :follower, Types::UserType, null: true, description: 'The user that is following.'
 
     argument :user_id, ID, required: true, loads: Types::UserType, description: 'The ID of the user to follow.'
 
@@ -20,9 +20,9 @@ module Mutations
       viewer = context[:viewer]
 
       if viewer.follow(user)
-        { viewer:, followed_user: user, errors: [] }
+        { follower: viewer, followee: user, errors: [] }
       else
-        { viewer:, followed_user: nil, errors: ['Failed to follow the user'] }
+        { follower: viewer, followee: nil, errors: ['Failed to follow the user'] }
       end
     end
   end
