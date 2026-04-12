@@ -44,7 +44,8 @@ class GenerateFakeDataJob < ApplicationJob
   end
 
   def create_admin_users
-    admin = User.create(name: 'Admin User', email: 'admin@example.com', password: 'admin')
+    admin = User.create(name: 'Admin User', email: 'admin@example.com', password: 'admin',
+                        bio: 'Hi! I am the admin user. I can do anything!')
     admin.avatar.attach(
       io: URI("https://i.pravatar.cc/150?u=#{admin.email}").open,
       filename: "#{admin.id}_avatar.jpg"
