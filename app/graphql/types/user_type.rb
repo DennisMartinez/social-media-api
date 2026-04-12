@@ -7,6 +7,7 @@ module Types
     description 'A user of the social media platform.'
 
     field :avatar_url, String, null: true, description: 'The URL of the user\'s avatar image.'
+    field :comment_count, Integer, null: false, description: 'The number of comments made by the user.'
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was created.'
     field :email, String, null: false, description: 'The email address of the user.'
@@ -16,8 +17,10 @@ module Types
     field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
     field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
     field :following_count, Integer, null: false, description: 'The number of users this user is following.'
+    field :like_count, Integer, null: false, description: 'The number of likes made by the user.'
     field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
     field :name, String, null: false, description: 'The name of the user.'
+    field :post_count, Integer, null: false, description: 'The number of posts created by the user.'
     field :posts, Types::PostType.connection_type, null: true, description: 'The posts created by the user.'
     field :recommended_follows, Types::UserType.connection_type,
           null: true, description: 'Recommended users to follow based on the user\'s following list.'
@@ -42,6 +45,13 @@ module Types
       dataloader
         .with(Sources::AssociationSource, :posts, order: { created_at: :desc })
         .load(object)
+    end
+
+    def post_count
+      dataloader
+        .with(Sources::AssociationSource, :posts)
+        .load(object)
+        .then(&:length)
     end
 
     def followers
@@ -76,10 +86,24 @@ module Types
         .load(object)
     end
 
+    def comment_count
+      dataloader
+        .with(Sources::AssociationSource, :comments)
+        .load(object)
+        .then(&:length)
+    end
+
     def likes
       dataloader
         .with(Sources::AssociationSource, :likes, order: { created_at: :desc })
         .load(object)
+    end
+
+    def like_count
+      dataloader
+        .with(Sources::AssociationSource, :likes)
+        .load(object)
+        .then(&:length)
     end
 
     def feed
