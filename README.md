@@ -4,6 +4,17 @@ An example application built with Ruby on Rails, React, and Relay.
 
 Frontend Application: https://github.com/DennisMartinez/social-media-app
 
+You can view the demo at https://social-media.dennismartinez.io/. The sign in credentials are below.
+
+```bash
+email: admin@example.com
+password: password
+```
+
+_Note:_ The demo database resets every hour.
+
+---
+
 ---
 
 ## Getting Started
