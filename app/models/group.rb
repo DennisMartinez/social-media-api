@@ -7,7 +7,7 @@
 #  name       :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  owner_id   :integer
+#  owner_id   :integer          not null
 #
 # Indexes
 #
@@ -21,7 +21,7 @@
 class Group < ApplicationRecord
   has_one_attached :avatar
 
-  belongs_to :owner, class_name: 'User', optional: true
+  belongs_to :owner, class_name: 'User'
   has_many :group_memberships, dependent: :destroy
   has_many :members, through: :group_memberships, source: :user
   has_many :posts, dependent: :nullify

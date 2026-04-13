@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_13_155340) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_13_161657) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -75,7 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_155340) do
     t.text "bio", limit: 1000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "owner_id"
+    t.integer "owner_id", null: false
     t.index ["name"], name: "index_groups_on_name", unique: true
     t.index ["owner_id"], name: "index_groups_on_owner_id"
   end

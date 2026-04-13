@@ -17,8 +17,8 @@ class GenerateFakeDataJob < ApplicationJob
     users = admin_users + non_admin_users
 
     posts = create_posts(users)
-    groups = create_groups(non_admin_users, group_limit)
 
+    create_groups(non_admin_users, group_limit)
     create_comments(users, posts)
     create_likes(users, posts)
     create_follows(users)
@@ -120,7 +120,8 @@ class GenerateFakeDataJob < ApplicationJob
     Array.new(limit) do
       group = Group.create!(
         name: Faker::Lorem.unique.word.capitalize,
-        bio: Faker::Lorem.sentence(word_count: 15)
+        bio: Faker::Lorem.sentence(word_count: 15),
+        owner: users.sample
       )
 
       image_url = Faker::LoremFlickr.image(size: '150x150', search_terms: ['group'])
