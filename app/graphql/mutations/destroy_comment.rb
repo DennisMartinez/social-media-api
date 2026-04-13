@@ -7,8 +7,7 @@ module Mutations
     field :comment, Types::CommentType, null: true, description: 'The comment that was destroyed.'
     field :errors, [String], null: false, description: 'Errors that prevented the comment from being destroyed.'
 
-    argument :comment_id, ID, loads: Types::CommentType, required: true,
-                              description: 'The ID of the comment to destroy.'
+    argument :comment_id, ID, loads: Types::CommentType, required: true, description: 'The ID of the comment to destroy.'
 
     def authorized?(comment:, **_args)
       viewer = context[:viewer]

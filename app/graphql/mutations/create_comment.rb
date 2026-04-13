@@ -7,8 +7,7 @@ module Mutations
     field :comment_edge, Types::CommentType.edge_type, null: true, description: 'The comment that was created.'
     field :errors, [String], null: false, description: 'Errors that prevented the comment from being created.'
 
-    argument :commentable_id, ID, loads: Types::CommentableType, required: true,
-                                  description: 'The ID of the commentable object to comment on.'
+    argument :commentable_id, ID, loads: Types::CommentableType, required: true,  description: 'The ID of the commentable object to comment on.'
     argument :content, String, required: true, description: 'The content of the comment.'
 
     def authorized?(**_args)

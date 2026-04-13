@@ -8,10 +8,8 @@ module Types
 
     field :commentable, Types::CommentableType, null: false, description: 'The object that was commented on.'
     field :content, String, null: false, description: 'The content of the comment.'
-    field :created_at, GraphQL::Types::ISO8601DateTime, null: false,
-                                                        description: 'The time when the comment was created.'
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
-                                                        description: 'The time when the comment was last updated.'
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the comment was created.'
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the comment was last updated.'
     field :user, Types::UserType, null: false, description: 'The user who created the comment.'
     field :viewer_can_destroy, Boolean, null: false, description: 'Whether the current viewer can destroy this comment.'
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :backfill_groups do
   desc 'Backfill group ownership for existing groups with the first member as the owner'
   task ownership: :environment do

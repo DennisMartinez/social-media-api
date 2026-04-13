@@ -7,8 +7,7 @@ module Mutations
     field :errors, [String], null: false, description: 'Errors that prevented the like from being created.'
     field :like_edge, Types::LikeType.edge_type, null: true, description: 'The likeable object that was liked.'
 
-    argument :likeable_id, ID, loads: Types::LikeableType, required: true,
-                               description: 'The ID of the likeable object to like.'
+    argument :likeable_id, ID, loads: Types::LikeableType, required: true, description: 'The ID of the likeable object to like.'
 
     def authorized?(**_args)
       return true if context[:viewer]

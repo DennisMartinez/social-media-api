@@ -7,8 +7,7 @@ module Mutations
     field :errors, [String], null: false, description: 'Errors that prevented the like from being destroyed.'
     field :like, Types::LikeType, null: true, description: 'The like that was destroyed.'
 
-    argument :likeable_id, ID, loads: Types::LikeableType, required: true,
-                               description: 'The ID of the likeable object to unlike.'
+    argument :likeable_id, ID, loads: Types::LikeableType, required: true, description: 'The ID of the likeable object to unlike.'
 
     def authorized?(likeable:, **_args)
       viewer = context[:viewer]

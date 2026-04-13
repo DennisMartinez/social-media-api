@@ -12,8 +12,7 @@ module Types
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was created.'
     field :email, String, null: false, description: 'The email address of the user.'
-    field :feed, Types::PostType.connection_type,
-          null: false, description: 'The feed of posts from the current user and the users they follow.'
+    field :feed, Types::PostType.connection_type, null: false, description: 'The feed of posts from the current user and the users they follow.'
     field :follower_count, Integer, null: false, description: 'The number of followers this user has.'
     field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
     field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
@@ -25,10 +24,8 @@ module Types
     field :name, String, null: false, description: 'The name of the user.'
     field :post_count, Integer, null: false, description: 'The number of posts created by the user.'
     field :posts, Types::PostType.connection_type, null: true, description: 'The posts created by the user.'
-    field :recommended_follows, Types::UserType.connection_type,
-          null: true, description: 'Recommended users to follow based on the user\'s following list.'
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
-                                                        description: 'The time when the user was last updated.'
+    field :recommended_follows, Types::UserType.connection_type, null: true, description: 'Recommended users to follow based on the user\'s following list.'
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was last updated.'
     field :viewer_can_follow, Boolean, null: false, description: 'Whether the current viewer can follow this user.'
     field :viewer_is_following, Boolean, null: false, description: 'Whether the current viewer is following this user.'
 

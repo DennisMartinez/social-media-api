@@ -19,8 +19,7 @@ module Sources
 
         base = klass.where(foreign_key_type => record_type, foreign_key_id => records.map(&:id))
         base = base.order(@order) if @order
-        base.group_by { |r| r.public_send(foreign_key_id) }
-            .then { |results| records.map { |r| results[r.id] || [] } }
+        base.group_by { |r| r.public_send(foreign_key_id) }.then { |results| records.map { |r| results[r.id] || [] } }
       else
         ActiveRecord::Associations::Preloader.new(
           records: records,

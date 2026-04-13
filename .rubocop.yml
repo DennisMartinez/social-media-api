@@ -16,3 +16,7 @@ GraphQL/ExtractType:
   Enabled: false
 GraphQL/ExtractInputType:
   Enabled: false
+Layout/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
