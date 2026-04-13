@@ -7,14 +7,21 @@
 #  name       :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  owner_id   :integer
 #
 # Indexes
 #
-#  index_groups_on_name  (name) UNIQUE
+#  index_groups_on_name      (name) UNIQUE
+#  index_groups_on_owner_id  (owner_id)
+#
+# Foreign Keys
+#
+#  owner_id  (owner_id => users.id)
 #
 class Group < ApplicationRecord
   has_one_attached :avatar
 
+  belongs_to :owner, class_name: 'User', optional: true
   has_many :group_memberships, dependent: :destroy
   has_many :members, through: :group_memberships, source: :user
   has_many :posts, dependent: :nullify

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_13_130202) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_13_155340) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -75,7 +75,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_130202) do
     t.text "bio", limit: 1000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "owner_id"
     t.index ["name"], name: "index_groups_on_name", unique: true
+    t.index ["owner_id"], name: "index_groups_on_owner_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -125,6 +127,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_13_130202) do
   add_foreign_key "follows", "users", column: "follower_id"
   add_foreign_key "group_memberships", "groups"
   add_foreign_key "group_memberships", "users"
+  add_foreign_key "groups", "users", column: "owner_id"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "groups"
   add_foreign_key "posts", "users"

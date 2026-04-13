@@ -39,6 +39,7 @@ class User < ApplicationRecord
 
   has_many :group_memberships, dependent: :destroy
   has_many :groups, through: :group_memberships
+  has_many :owned_groups, class_name: 'Group', foreign_key: 'owner_id', inverse_of: :owner, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :bio, length: { maximum: 1000 }, allow_blank: true

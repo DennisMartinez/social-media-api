@@ -7,10 +7,16 @@
 #  name       :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  owner_id   :integer
 #
 # Indexes
 #
-#  index_groups_on_name  (name) UNIQUE
+#  index_groups_on_name      (name) UNIQUE
+#  index_groups_on_owner_id  (owner_id)
+#
+# Foreign Keys
+#
+#  owner_id  (owner_id => users.id)
 #
 FactoryBot.define do
   factory :group do
