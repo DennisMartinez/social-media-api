@@ -3,6 +3,8 @@ namespace :backfill_groups do
   task ownership: :environment do
     Group.where(owner_id: nil).find_each do |group|
       owner = User.joins(:groups).where(groups: { id: group.id }).first
+      owner ||= User.find_by(email: 'admin@example.com')
+
       if owner
         group.update(owner: owner)
         puts "Backfilled owner for group #{group.id} (#{group.name}) with user #{owner.id} (#{owner.name})"
