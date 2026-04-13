@@ -6,15 +6,18 @@ class GenerateFakeDataJob < ApplicationJob
   queue_as :default
 
   DEFAULT_USER_COUNT = 100
+  DEFAULT_GROUP_COUNT = 20
 
-  def perform(limit = DEFAULT_USER_COUNT)
+  def perform(user_limit = DEFAULT_USER_COUNT, group_limit = DEFAULT_GROUP_COUNT)
     reset_data
     truncate_all
 
-    users = create_admin_users
-    users += create_users(limit)
+    admin_users = create_admin_users
+    non_admin_users = create_users(user_limit)
+    users = admin_users + non_admin_users
+
     posts = create_posts(users)
-    groups = create_groups(users)
+    groups = create_groups(non_admin_users, group_limit)
 
     create_comments(users, posts)
     create_likes(users, posts)
@@ -113,8 +116,8 @@ class GenerateFakeDataJob < ApplicationJob
     end
   end
 
-  def create_groups(users)
-    Array.new(20) do
+  def create_groups(users, limit)
+    Array.new(limit) do
       group = Group.create!(
         name: Faker::Lorem.unique.word.capitalize,
         bio: Faker::Lorem.sentence(word_count: 15)
@@ -128,7 +131,7 @@ class GenerateFakeDataJob < ApplicationJob
         content_type: 'image/jpeg'
       )
 
-      group.members << users.sample(rand(5..20))
+      # group.members << users.sample(rand(5..20))
       group
     end
   end

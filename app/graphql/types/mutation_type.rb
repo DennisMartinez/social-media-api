@@ -17,6 +17,8 @@ module Types
                          description: 'Destroy a like on a likeable object (e.g. post).'
     field :destroy_post, mutation: Mutations::DestroyPost, description: 'Delete a post created by the current user.'
     field :follow_user, mutation: Mutations::FollowUser, description: 'Follow a user.'
+    field :join_group, mutation: Mutations::JoinGroup, description: 'Join a group.'
+    field :leave_group, mutation: Mutations::LeaveGroup, description: 'Leave a group.'
     field :sign_in, mutation: Mutations::SignIn, description: 'Sign in a user with their email and password.'
     field :sign_out, mutation: Mutations::SignOut, description: 'Sign out the currently authenticated user.'
     field :sign_up, mutation: Mutations::SignUp,

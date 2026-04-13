@@ -10,7 +10,6 @@ module Types
     field :bio, String, null: true, description: 'A short description of the group.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The date and time when the group was created.'
-    field :id, ID, null: false, description: 'The unique identifier of the group.'
     field :member_count, Integer, null: false, description: 'The number of members in the group.'
     field :members, [Types::UserType], null: false, description: 'The users who are members of the group.'
     field :name, String, null: false, description: 'The name of the group.'
@@ -18,6 +17,23 @@ module Types
     field :posts, [Types::PostType], null: false, description: 'The posts that have been made in the group.'
     field :updated_at, GraphQL::Types::ISO8601DateTime,
           null: false, description: 'The date and time when the group was last updated.'
+    field :viewer_can_join, Boolean, null: false, description: 'Whether the current viewer can join the group.'
+    field :viewer_can_leave, Boolean, null: false, description: 'Whether the current viewer can leave the group.'
+    field :viewer_is_member, Boolean, null: false, description: 'Whether the current viewer is a member of the group.'
+
+    def viewer_is_member
+      dataloader.with(Sources::AssociationSource, :members).load(object).then do |members|
+        members.any? { |member| member.id == context[:viewer].id }
+      end
+    end
+
+    def viewer_can_join
+      viewer_is_member.then(&:!)
+    end
+
+    def viewer_can_leave
+      viewer_is_member
+    end
 
     def avatar_url
       dataloader.with(Sources::ActiveStorageUrlSource, :avatar).load(object)
