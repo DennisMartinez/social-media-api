@@ -7,7 +7,7 @@ module Types
 
     description 'The query root of this schema'
 
-    field :groups, Types::GroupType.connection_type, null: false, description: 'A list of all groups.'
+    field :groups, Types::GroupType.connection_type, null: true, description: 'A list of all groups.'
     field :viewer, Types::UserType, null: false, description: 'The currently authenticated user'
 
     def groups

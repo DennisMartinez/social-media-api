@@ -117,21 +117,21 @@ class GenerateFakeDataJob < ApplicationJob
   end
 
   def create_groups(users, limit)
-    Array.new(limit) do |i|
+    Array.new(limit) do
       group = Group.create!(
-        name: "Group #{i + 1}",
+        name: Faker::Lorem.sentence(word_count: rand(2..10)).titleize,
         bio: Faker::Lorem.sentence(word_count: rand(10..30)),
         owner: users.sample
       )
 
       image_url = Faker::LoremFlickr.image(size: '150x150', search_terms: ['group'])
-
       group.avatar.attach(
         io: URI(image_url).open,
         filename: "#{group.id}_avatar.jpg",
         content_type: 'image/jpeg'
       )
 
+      group.members << users.sample(rand(5..20))
       group
     end
   end

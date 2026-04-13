@@ -10,10 +10,11 @@ module Types
     field :bio, String, null: true, description: 'A short description of the group.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The date and time when the group was created.'
     field :member_count, Integer, null: false, description: 'The number of members in the group.'
-    field :members, Types::UserType.connection_type, null: false, description: 'The users who are members of the group.'
+    field :members, Types::UserType.connection_type, null: true, description: 'The users who are members of the group.'
     field :name, String, null: false, description: 'The name of the group.'
+    field :owner, Types::UserType, null: false, description: 'The user who created the group.'
     field :post_count, Integer, null: false, description: 'The number of posts in the group.'
-    field :posts, Types::PostType.connection_type, null: false, description: 'The posts that have been made in the group.'
+    field :posts, Types::PostType.connection_type, null: true, description: 'The posts that have been made in the group.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The date and time when the group was last updated.'
     field :viewer_can_join, Boolean, null: false, description: 'Whether the current viewer can join the group.'
     field :viewer_can_leave, Boolean, null: false, description: 'Whether the current viewer can leave the group.'
@@ -32,6 +33,10 @@ module Types
         .with(Sources::AssociationSource, :members)
         .load(object)
         .then(&:length)
+    end
+
+    def owner
+      dataloader.with(Sources::RecordSource, User).load(object.owner_id)
     end
 
     def posts

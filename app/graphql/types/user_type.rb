@@ -12,7 +12,7 @@ module Types
     field :comments, Types::CommentType.connection_type, null: true, description: 'The comments made by the user.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the user was created.'
     field :email, String, null: false, description: 'The email address of the user.'
-    field :feed, Types::PostType.connection_type, null: false, description: 'The feed of posts from the current user and the users they follow.'
+    field :feed, Types::PostType.connection_type, null: true, description: 'The feed of posts from the current user and the users they follow.'
     field :follower_count, Integer, null: false, description: 'The number of followers this user has.'
     field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
     field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
