@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_12_174639) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_13_130202) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -60,6 +60,24 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_174639) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "group_memberships", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_group_memberships_on_group_id"
+    t.index ["user_id", "group_id"], name: "index_group_memberships_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_group_memberships_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name", limit: 255, null: false
+    t.text "bio", limit: 1000
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_groups_on_name", unique: true
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "likeable_type", null: false
@@ -76,6 +94,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_174639) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_posts_on_group_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -103,7 +123,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_12_174639) do
   add_foreign_key "comments", "users"
   add_foreign_key "follows", "users", column: "followed_id"
   add_foreign_key "follows", "users", column: "follower_id"
+  add_foreign_key "group_memberships", "groups"
+  add_foreign_key "group_memberships", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "posts", "groups"
   add_foreign_key "posts", "users"
   add_foreign_key "sessions", "users"
 end

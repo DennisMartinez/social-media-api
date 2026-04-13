@@ -20,6 +20,8 @@ class ApiSchema < GraphQL::Schema
       Types::LikeType
     when Comment
       Types::CommentType
+    when Group
+      Types::GroupType
     else
       raise(GraphQL::RequiredImplementationMissingError)
     end

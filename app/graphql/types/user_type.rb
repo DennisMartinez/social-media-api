@@ -18,6 +18,8 @@ module Types
     field :followers, Types::UserType.connection_type, null: true, description: 'The users who are following this user.'
     field :following, Types::UserType.connection_type, null: true, description: 'The users that this user is following.'
     field :following_count, Integer, null: false, description: 'The number of users this user is following.'
+    field :group_count, Integer, null: false, description: 'The number of groups that the user is a member of.'
+    field :groups, Types::GroupType.connection_type, null: true, description: 'The groups that the user is a member of.'
     field :like_count, Integer, null: false, description: 'The number of likes made by the user.'
     field :likes, Types::LikeType.connection_type, null: true, description: 'The likes made by the user.'
     field :name, String, null: false, description: 'The name of the user.'
@@ -27,19 +29,11 @@ module Types
           null: true, description: 'Recommended users to follow based on the user\'s following list.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'The time when the user was last updated.'
-    field :viewer_can_follow, Boolean, null: false,
-                                       description: 'Whether the current viewer can follow this user.'
+    field :viewer_can_follow, Boolean, null: false, description: 'Whether the current viewer can follow this user.'
     field :viewer_is_following, Boolean, null: false, description: 'Whether the current viewer is following this user.'
 
     def avatar_url
       dataloader.with(Sources::ActiveStorageUrlSource, :avatar).load(object)
-    end
-
-    def viewer_can_follow
-      return false unless context[:viewer]
-      return false if context[:viewer] == object
-
-      true
     end
 
     def posts
@@ -94,6 +88,19 @@ module Types
         .then(&:length)
     end
 
+    def groups
+      dataloader
+        .with(Sources::AssociationSource, :groups, order: { created_at: :desc })
+        .load(object)
+    end
+
+    def group_count
+      dataloader
+        .with(Sources::AssociationSource, :groups)
+        .load(object)
+        .then(&:length)
+    end
+
     def likes
       dataloader
         .with(Sources::AssociationSource, :likes, order: { created_at: :desc })
@@ -109,6 +116,13 @@ module Types
 
     def feed
       dataloader.with(Sources::FeedSource).load(object)
+    end
+
+    def viewer_can_follow
+      return false unless context[:viewer]
+      return false if context[:viewer] == object
+
+      true
     end
 
     def recommended_follows

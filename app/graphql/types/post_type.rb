@@ -10,6 +10,7 @@ module Types
     field :comments_count, Integer, null: false, description: 'The number of comments on this post.'
     field :content, String, null: false, description: 'The content of the post.'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false, description: 'The time when the post was created.'
+    field :group, Types::GroupType, null: true, description: 'The group this post belongs to, if any.'
     field :likes, Types::LikeType.connection_type, null: false, description: 'The likes on this post.'
     field :likes_count, Integer, null: false, description: 'The number of likes on this post.'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
@@ -32,6 +33,10 @@ module Types
         .with(Sources::AssociationSource, :comments)
         .load(object)
         .then(&:length)
+    end
+
+    def group
+      dataloader.with(Sources::AssociationSource, :group).load(object)
     end
 
     def likes

@@ -7,7 +7,12 @@ module Types
 
     description 'The query root of this schema'
 
-    field :viewer, UserType, null: false, description: 'The currently authenticated user'
+    field :groups, Types::GroupType.connection_type, null: false, description: 'A list of all groups.'
+    field :viewer, Types::UserType, null: false, description: 'The currently authenticated user'
+
+    def groups
+      Group.all
+    end
 
     def viewer
       raise GraphQL::ExecutionError, 'Unauthorized' unless context[:viewer]

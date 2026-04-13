@@ -14,6 +14,7 @@ class GenerateFakeDataJob < ApplicationJob
     users = create_admin_users
     users += create_users(limit)
     posts = create_posts(users)
+    groups = create_groups(users)
 
     create_comments(users, posts)
     create_likes(users, posts)
@@ -109,6 +110,26 @@ class GenerateFakeDataJob < ApplicationJob
 
         user.following << other unless user.following.exists?(other.id)
       end
+    end
+  end
+
+  def create_groups(users)
+    Array.new(20) do
+      group = Group.create!(
+        name: Faker::Lorem.unique.word.capitalize,
+        bio: Faker::Lorem.sentence(word_count: 15)
+      )
+
+      image_url = Faker::LoremFlickr.image(size: '150x150', search_terms: ['group'])
+
+      group.avatar.attach(
+        io: URI(image_url).open,
+        filename: "#{group.id}_avatar.jpg",
+        content_type: 'image/jpeg'
+      )
+
+      group.members << users.sample(rand(5..20))
+      group
     end
   end
 end

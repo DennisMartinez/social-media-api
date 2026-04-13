@@ -37,6 +37,9 @@ class User < ApplicationRecord
                                     dependent: :destroy
   has_many :followers, through: :follower_relationships, source: :follower
 
+  has_many :group_memberships, dependent: :destroy
+  has_many :groups, through: :group_memberships
+
   validates :name, presence: true, length: { maximum: 255 }
   validates :bio, length: { maximum: 1000 }, allow_blank: true
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true

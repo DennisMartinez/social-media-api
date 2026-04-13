@@ -1,20 +1,18 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
-# Table name: posts
+# Table name: group_memberships
 #
 #  id         :integer          not null, primary key
-#  content    :text(500)        not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  group_id   :integer
+#  group_id   :integer          not null
 #  user_id    :integer          not null
 #
 # Indexes
 #
-#  index_posts_on_group_id  (group_id)
-#  index_posts_on_user_id   (user_id)
+#  index_group_memberships_on_group_id              (group_id)
+#  index_group_memberships_on_user_id               (user_id)
+#  index_group_memberships_on_user_id_and_group_id  (user_id,group_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -23,6 +21,6 @@
 #
 require 'rails_helper'
 
-RSpec.describe Post do
+RSpec.describe GroupMembership, type: :model do
   pending "add some examples to (or delete) #{__FILE__}"
 end
