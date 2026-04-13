@@ -13,14 +13,12 @@ module Types
     field :group, Types::GroupType, null: true, description: 'The group this post belongs to, if any.'
     field :likes, Types::LikeType.connection_type, null: false, description: 'The likes on this post.'
     field :likes_count, Integer, null: false, description: 'The number of likes on this post.'
-    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
-                                                        description: 'The time when the post was last updated.'
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,  description: 'The time when the post was last updated.'
     field :user, Types::UserType, null: false, description: 'The user who created the post.'
     field :viewer_can_destroy, Boolean, null: false, description: 'Whether the current viewer can destroy this post.'
     field :viewer_can_like, Boolean, null: false, description: 'Whether the current viewer can like this post.'
     field :viewer_has_liked, Boolean, null: false, description: 'Whether the current viewer is liking this post.'
-    field :viewer_like, Types::LikeType,
-          null: true, description: 'The like object representing the current viewer\'s like on this post, if it exists.'
+    field :viewer_like, Types::LikeType, null: true, description: 'The like object representing the current viewer\'s like on this post, if it exists.'
 
     def comments
       dataloader

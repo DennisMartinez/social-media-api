@@ -117,10 +117,10 @@ class GenerateFakeDataJob < ApplicationJob
   end
 
   def create_groups(users, limit)
-    Array.new(limit) do
+    Array.new(limit) do |i|
       group = Group.create!(
-        name: Faker::Lorem.unique.word.capitalize,
-        bio: Faker::Lorem.sentence(word_count: 15),
+        name: "Group #{i + 1}",
+        bio: Faker::Lorem.sentence(word_count: rand(10..30)),
         owner: users.sample
       )
 
@@ -132,7 +132,6 @@ class GenerateFakeDataJob < ApplicationJob
         content_type: 'image/jpeg'
       )
 
-      # group.members << users.sample(rand(5..20))
       group
     end
   end
