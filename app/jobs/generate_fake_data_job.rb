@@ -36,14 +36,14 @@ class GenerateFakeDataJob < ApplicationJob
     tables = connection.tables - %w[schema_migrations ar_internal_metadata]
 
     tables.each do |table|
-      connection.execute("DELETE FROM #{connection.quote_table_name(table)}")
+      connection.execute('DELETE FROM ?', connection.quote_table_name(table))
     end
 
     # Reset SQLite auto-increment counters
     return unless connection.adapter_name == 'SQLite'
 
     tables.each do |table|
-      connection.execute("DELETE FROM sqlite_sequence WHERE name='#{table}'")
+      connection.execute('DELETE FROM sqlite_sequence WHERE name = ?', table)
     end
   end
 
