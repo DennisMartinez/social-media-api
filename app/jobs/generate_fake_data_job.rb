@@ -39,11 +39,10 @@ class GenerateFakeDataJob < ApplicationJob
       connection.execute("DELETE FROM #{connection.quote_table_name(table)}")
     end
 
-    # Reset SQLite auto-increment counters
     return unless connection.adapter_name == 'SQLite'
 
     tables.each do |table|
-      connection.execute("DELETE FROM sqlite_sequence WHERE name='#{table}'")
+      connection.execute('DELETE FROM sqlite_sequence WHERE name = ?', [table])
     end
   end
 
