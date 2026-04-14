@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+export RAILS_MASTER_KEY="${RAILS_MASTER_KEY:-$(cat config/master.key)}"
+
+kamal deploy "$@"
