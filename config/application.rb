@@ -43,7 +43,7 @@ module Api
     config.api_only = true
 
     # This also configures session_options for use below
-    config.session_store :cookie_store, key: '_car_social_media_session'
+    config.session_store :cookie_store, key: '_social_media_session'
 
     # Required for all session management (regardless of session_store)
     config.middleware.use ActionDispatch::Cookies
