@@ -8,7 +8,7 @@ You can view the demo at https://social-media.dennismartinez.io/. The sign in cr
 
 ```bash
 email: admin@example.com
-password: password
+password: admin
 ```
 
 _Note:_ The demo database resets every hour.
