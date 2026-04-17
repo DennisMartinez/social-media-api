@@ -60,4 +60,4 @@ end
 
 gem 'graphql', '~> 2.5'
 
-gem 'faker', '~> 3.6'
+gem 'faker', '~> 3.8'
