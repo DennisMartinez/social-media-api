@@ -58,6 +58,6 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-gem 'graphql', '~> 2.5'
+gem 'graphql', '~> 2.6'
 
 gem 'faker', '~> 3.6'
